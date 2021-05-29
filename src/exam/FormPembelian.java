@@ -598,12 +598,37 @@ public class FormPembelian extends javax.swing.JFrame {
             String queryPurchaseDetail = "insert into purchase_detail values";
             List<Map<String, Object>> listProduct = new ArrayList();
 
+            String infoStock = "Informasi Stock \n\n";
+
             if(!txtProduct_ID1.getText().equals("")){
+                //select before
+                ResultSet selectBefore = statement.executeQuery(
+                        "select Stock from product "
+                                + "where Product_ID="+txtProduct_ID1.getText());
+
+                while (selectBefore.next()){
+                    infoStock = infoStock.concat("Product ID : "
+                            +txtProduct_ID1.getText()
+                            +"\nStock Sebelum : "+ selectBefore.getString("Stock")
+                            +"\n");
+                }
+
                 String queryProduct = "update product "
                         + "set Stock = `Stock`+"+txtQty1.getText()
                         + " where Product_ID="+txtProduct_ID1.getText()
                         +";";
                 statement.executeUpdate(queryProduct);
+
+                //select after
+                ResultSet selectAfter = statement.executeQuery(
+                        "select Stock from product "
+                                + "where Product_ID="+txtProduct_ID1.getText());
+
+                while (selectAfter.next()){
+                    infoStock = infoStock.concat("Stock Sekarang : "
+                            + selectAfter.getString("Stock")
+                            +"\n\n");
+                }
 
                 Map<String, Object> product = new HashMap();
                 product.put("productID", txtProduct_ID1.getText());
@@ -613,11 +638,34 @@ public class FormPembelian extends javax.swing.JFrame {
                 listProduct.add(product);
             }
             if(!txtProduct_ID2.getText().equals("")){
+                //select before
+                ResultSet selectBefore = statement.executeQuery(
+                        "select Stock from product "
+                                + "where Product_ID="+txtProduct_ID2.getText());
+
+                while (selectBefore.next()){
+                    infoStock = infoStock.concat("Product ID : "
+                            +txtProduct_ID2.getText()
+                            +"\nStock Sebelum : "+ selectBefore.getString("Stock")
+                            +"\n");
+                }
+
                 String queryProduct = "update product "
                         + "set Stock = `Stock`+"+txtQty2.getText()
                         + " where Product_ID="+txtProduct_ID2.getText()
                         +";";
                 statement.executeUpdate(queryProduct);
+
+                //select after
+                ResultSet selectAfter = statement.executeQuery(
+                        "select Stock from product "
+                                + "where Product_ID="+txtProduct_ID2.getText());
+
+                while (selectAfter.next()){
+                    infoStock = infoStock.concat("Stock Sekarang : "
+                            + selectAfter.getString("Stock")
+                            +"\n\n");
+                }
 
                 Map<String, Object> product = new HashMap();
                 product.put("productID", txtProduct_ID2.getText());
@@ -627,11 +675,34 @@ public class FormPembelian extends javax.swing.JFrame {
                 listProduct.add(product);
             }
             if(!txtProduct_ID3.getText().equals("")){
+                //select before
+                ResultSet selectBefore = statement.executeQuery(
+                        "select Stock from product "
+                                + "where Product_ID="+txtProduct_ID3.getText());
+
+                while (selectBefore.next()){
+                    infoStock = infoStock.concat("Product ID : "
+                            +txtProduct_ID3.getText()
+                            +"\nStock Sebelum : "+ selectBefore.getString("Stock")
+                            +"\n\n");
+                }
+
                 String queryProduct = "update product "
                         + "set Stock = `Stock`+"+txtQty3.getText()
                         + " where Product_ID="+txtProduct_ID3.getText()
                         +";";
                 statement.executeUpdate(queryProduct);
+
+                //select after
+                ResultSet selectAfter = statement.executeQuery(
+                        "select Stock from product "
+                                + "where Product_ID="+txtProduct_ID3.getText());
+
+                while (selectAfter.next()){
+                    infoStock = infoStock.concat("Stock Sekarang : "
+                            + selectAfter.getString("Stock")
+                            +"\n");
+                }
 
                 Map<String, Object> product = new HashMap();
                 product.put("productID", txtProduct_ID3.getText());
@@ -658,6 +729,7 @@ public class FormPembelian extends javax.swing.JFrame {
             statement.executeUpdate(queryPurchaseDetail);
 
             JOptionPane.showMessageDialog(null, "Data berhasil disimpan!");
+            JOptionPane.showMessageDialog(null, infoStock);
 
         } catch (SQLException ex) {
             Logger.getLogger(FormPembelian.class.getName()).log(Level.SEVERE, null, ex);
